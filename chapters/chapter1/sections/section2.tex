@@ -1,0 +1,42 @@
+\section{Extension to Fields}
+
+The limitation with the \textit{group} is that - it only supports one binary operation. \textit{What if we want two?} In mathematics, the most common operations are addition and multiplication \textit{subtarction and division are just their inverses}. So, we need support for two operations - addition (+) and multiplication ($\cdot$). \\
+
+This extension brings another set of rules and definitions. We will look at the examples shortly. For now, just understand the terminology. 
+
+\begin{definition}
+    A ring \( (R, +, \cdot) \) is a set equipped with two binary operations: addition (+) and multiplication ($\cdot$). A ring must satisfy the following:
+    \begin{itemize}
+        \item \textbf{Additive Group}: \( (R, +) \) is an abelian group.
+        \item \textbf{Multiplicative Closure}: For all \( a, b \in R \), \( a \cdot b \in R \).
+        \item \textbf{Distributive Property}: Multiplication is distributive over addition, i.e., for all \( a, b, c \in R \):
+        \[
+        a \cdot (b + c) = a \cdot b + a \cdot c
+        \]
+     and
+        \[
+        (a + b) \cdot c = a \cdot c + b \cdot c.
+        \]
+    \end{itemize}
+    A commutative ring additionally requires that multiplication be commutative: \( a \cdot b = b \cdot a \).
+\end{definition}
+
+
+\begin{definition}
+    A ring with unity (or unital ring) is a ring that has a multiplicative identity element \( 1 \in R \), such that for all \( a \in R \):
+     \[
+     1 \cdot a = a \cdot 1 = a.
+     \]
+\end{definition}
+
+\begin{definition}
+    A field \( (F, +, \cdot) \) is a commutative ring with unity in which every non-zero element has a multiplicative inverse. A field satisfies:
+    \begin{itemize}
+        \item \( (F, +) \) is an abelian group.
+        \item \( (F \setminus \{0\}, \cdot) \) is an abelian group (with respect to multiplication).
+        \item Distributivity holds: \( a \cdot (b + c) = a \cdot b + a \cdot c \) for all \( a, b, c \in F \).
+    \end{itemize}
+    Fields have two operations (addition and multiplication), and they allow for division (except by zero).
+\end{definition} 
+
+There is a good news for you - we are done with the abstract definitions for now! You must be wondering - this book was supposed to be on probability, then \textit{why are we studying these concepts?} We are creating a rigorous framework for the concepts in probability. Slowly, we will extend the idea to the \textit{set theory} - where each element is a subset of the sample space $S$ and the binary operations will be union of those sets, their intersection and so on. The field then has a special name called \textbf{$\sigma$-algebra}. We will get to these ideas, but before that let's strengthen few more concepts from the \textit{real analysis}. \\

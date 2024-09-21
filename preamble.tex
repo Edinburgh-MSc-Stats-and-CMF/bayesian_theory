@@ -23,6 +23,9 @@
 \fancyhead[L]{\leftmark}
 \fancyfoot[C]{\thepage}
 
+% Disable indentation of paragraphs
+\setlength{\parindent}{0pt}
+
 % Equation numbering
 \numberwithin{equation}{chapter}
 
@@ -31,6 +34,13 @@
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem{lemma}{Lemma}[chapter]
 \newtheorem{corollary}{Corollary}[chapter]
+
+% Exercise Environments
+\newtheorem{exercise}{Exercise}[chapter]
+\newtheorem{solution}{Solution}[chapter]
+
+% Example Environment
+\newtheorem{example}{Example}[chapter]
 
 % TikZ settings
 \usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc, matrix}
