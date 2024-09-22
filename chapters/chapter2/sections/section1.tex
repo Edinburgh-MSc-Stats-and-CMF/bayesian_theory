@@ -1,0 +1,311 @@
+\section{Probability and Counting}
+
+The first concept in the probability theory is the \textit{sample space} and the \textit{event}. 
+
+\begin{definition}
+    The sample space, often denoted by \( S \), is the set of all possible outcomes of a random experiment. Formally, if an experiment can result in one of \( n \) distinct outcomes, the sample space is the set containing all these outcomes.
+
+\[
+S = \{ \omega_1, \omega_2, \dots, \omega_n \}
+\]
+\end{definition}
+
+
+\textit{Example:} For a single coin flip, the sample space is:
+
+\[
+S = \{ \text{Heads}, \text{Tails} \}
+\]
+
+\begin{definition}
+    An event is a subset of the sample space. It represents one or more outcomes that may occur as a result of the experiment. Formally, if \( A \) is an event, then \( A \subseteq S \).
+\end{definition}
+
+\textit{Example:} If we roll a die, the sample space is \( S = \{1, 2, 3, 4, 5, 6\} \). An event could be rolling an even number:
+
+\[
+A = \{2, 4, 6\}
+\]
+
+An event \( A \) occurs if the outcome of the experiment is one of the elements of the subset \( A \). Mathematically, this means that if the outcome of the experiment is \( \omega \), we say the event \( A \) has occurred if \( \omega \in A \). \\
+
+\textit{Example:} If we roll a die and the outcome is 4, the event \( A = \{2, 4, 6\} \) (rolling an even number) has occurred because \( 4 \in A \). \\
+
+The probability of an event occuring is given by the \textit{naive definition of the probability.} The definition is called \textit{naive} because it has some gaps in it, but it works fairly well in many cases and only errs when dealing with \textit{infinitely big sample spaces}. As in real world, most of the experiments have finite number of outcomes - we can progress our theory for now and fix it later. 
+
+\begin{definition}
+    If all outcomes in the sample space \( S \) are equally likely, the probability of an event \( A \), denoted by \( P(A) \), is given by:
+
+\[
+P(A) = \frac{|A|}{|S|}
+\]
+
+where \( |A| \) is the number of outcomes in the event \( A \), and \( |S| \) is the total number of outcomes in the sample space \( S \).
+\end{definition}
+
+\textit{Example:} In a fair six-sided die roll, the probability of rolling an even number (event \( A = \{2, 4, 6\} \)) is:
+
+\[
+P(A) = \frac{|A|}{|S|} = \frac{3}{6} = \frac{1}{2}
+\]
+
+\textit{\textbf{Spoiler Alert!}} What happens when the outcomes are not exactly likely? You can imagine how flawed the argument sounds when I ask \textit{What's the probability of life on Mars?} and someone replies that there are two possibilities - either there is a life or not; hence the probability of life on Mars is 50\%. So now you are already seeing why this definition is called \textit{naive}. The theory that fixes this or improves our understanding of probability is the \textit{Bayesian Theory!} There is a lot of prerequisites that we have to cover before we touch that!
+
+\subsection{Counting}
+
+\begin{definition}
+    If an event can occur in \( n_1 \) ways and another mutually exclusive event can occur in \( n_2 \) ways, the total number of ways either of the two events can occur is:
+\[
+n_1 + n_2
+\]
+\end{definition}
+
+This rule applies when we are selecting from two or more disjoint sets. \\
+
+\textit{Example:} If you can choose a red shirt in 3 ways and a blue shirt in 5 ways, and you can only choose one shirt, the total number of choices is:
+\[
+3 + 5 = 8
+\]
+
+\begin{definition}
+    If a procedure can be broken down into two stages, where the first stage can occur in \( n_1 \) ways and for each of these the second stage can occur in \( n_2 \) ways, the total number of ways to perform the procedure is:
+\[
+n_1 \times n_2
+\]
+\end{definition}
+
+This rule applies when events are independent and occur sequentially. \\
+
+\textit{Example:} If you have 3 shirts and 2 pants to choose from, the total number of ways to select an outfit is:
+\[
+3 \times 2 = 6
+\]
+
+\begin{definition}
+    A permutation is an arrangement of \( k \) objects from \( n \) distinct objects where the order of selection matters. The number of permutations is given by:
+\[
+P(n, k) = \frac{n!}{(n-k)!}
+\]
+\end{definition}
+
+\textit{Example:} The number of ways to arrange 3 students out of 5 is:
+\[
+P(5, 3) = \frac{5!}{(5-3)!} = 5 \times 4 \times 3 = 60
+\]
+
+\begin{definition}
+    A combination is a selection of \( k \) objects from \( n \) distinct objects where the order of selection does not matter. The number of combinations is given by:
+\[
+C(n, k) = \binom{n}{k} = \frac{n!}{k!(n-k)!}
+\]
+\end{definition}
+
+\textit{Example:} The number of ways to choose 3 students out of 5 is:
+\[
+C(5, 3) = \binom{5}{3} = \frac{5!}{3!(5-3)!} = \frac{5 \times 4 \times 3}{3 \times 2 \times 1} = 10
+\]
+
+\subsubsection{Sampling Table}
+
+We can summarize the different ways of selecting items using the following 2x2 table, which distinguishes between sampling with and without replacement, and whether the order of selection matters or not.
+
+\[
+\begin{array}{|c|c|c|}
+\hline
+\textbf{Selection Criteria} & \textbf{With Replacement} & \textbf{Without Replacement} \\
+\hline
+\text{Order Matters} & n^k & \frac{n!}{(n-k)!} \\
+\hline
+\text{Order Doesn't Matter} & \binom{n+k-1}{k} & \binom{n}{k} \\
+\hline
+\end{array}
+\]
+\vspace{5pt}
+
+\textbf{Scenario:} Imagine you're visiting a candy store with 5 different types of candies. You're interested in selecting some candies, and we will explore four different ways you might select these candies based on the two criteria: 
+\begin{itemize}
+    \item whether you put back the candy after picking (with or without replacement)
+    \item whether the order in which you pick the candies matters
+\end{itemize} 
+
+\subsubsection*{With Replacement, Order Matters}
+Let's say you want to select 3 candies one by one, and every time you pick a candy, you put it back into the box before picking the next one. Also, you care about the order in which the candies are picked (perhaps because you are arranging them in a special pattern). \\
+
+\textbf{Story Proof:} The first candy you pick can be any of the 5 types. Since you put the candy back, when you pick the second candy, you again have 5 choices. For the third candy, you once again have 5 choices, because the previous candies were returned. Thus, for each of the 3 choices, there are 5 options, resulting in \( 5 \times 5 \times 5 = 5^3 = 125 \) different possible ways to select the candies.
+
+\subsubsection*{Without Replacement, Order Matters}
+
+Now, imagine you're selecting 3 candies, but this time after selecting a candy, you do \textbf{not} put it back into the box. You still care about the order of selection. \\
+
+\textbf{Story Proof:} For the first candy, you have 5 choices, as all candies are available. After picking the first candy, you're left with 4 candies to choose from for the second selection. Once the second candy is selected, only 3 candies remain for the third selection. Therefore, the total number of ways to arrange these candies is \( 5 \times 4 \times 3 = 60 \). 
+
+\subsubsection*{With Replacement, Order Doesn't Matter}
+
+Let's change the scenario. Now, you are still selecting 3 candies, but every time you pick a candy, you put it back into the box, and this time, you don’t care about the order in which you pick them.\\
+
+\textbf{Story Proof:} You are choosing 3 candies, and since you put the candy back after each selection, it’s possible to select the same candy more than once. However, because the order doesn’t matter, we don't treat "Red, Green, Blue" as different from "Blue, Green, Red." To count how many different groups of candies you can pick, we think of it as a combination with repetition. The formula to calculate this is \( \binom{n+k-1}{k} \), where \( n \) is the number of candy types, and \( k \) is the number of candies you’re choosing. In this case, there are \( \binom{5+3-1}{3} = \binom{7}{3} = 35 \) different combinations of candies.
+
+\subsubsection*{Without Replacement, Order Doesn't Matter}
+
+Finally, let’s consider the case where you’re selecting 3 candies, but you don’t put the candies back after picking, and you don’t care about the order in which they are picked.\\
+
+\textbf{Story Proof:} You are choosing 3 candies from the 5 available types, but once you pick a candy, you don't replace it. Since the order doesn’t matter, we only care about which candies were chosen, not the sequence of selection. To count how many different groups of candies you can pick, we use combinations. The number of ways to choose 3 candies from 5 without caring about the order is given by \( \binom{5}{3} = 10 \). \\
+
+There are some more story proofs!
+
+\subsubsection{Choosing the complement}
+
+For nonnegative integers \(n\) and \(k\) with \(k \leq n\), we have:
+\[
+\binom{n}{k} = \binom{n}{n-k}.
+\]
+
+\textbf{Story Proof:} Consider selecting a committee of size \(k\) from \(n\) people. You can either choose \(k\) people to be on the committee or equivalently choose the \(n-k\) people who will \textit{not} be on the committee. Both methods count the same outcome, so the two binomial coefficients are equal.
+
+\subsubsection{The Team Captain}
+
+For positive integers \(n\) and \(k\) with \(k \leq n\), we have:
+\[
+\binom{n}{k} = k \cdot \binom{n-1}{k-1}.
+\]
+
+\textbf{Story Proof:} Suppose we are choosing a team of \(k\) people from \(n\) individuals, one of whom will be the captain. First, choose the team captain, then select the remaining \(k-1\) members from the remaining \(n-1\) individuals. Alternatively, select the \(k\)-member team first, then choose one of the \(k\) members to be the captain.
+
+\subsubsection{Vandermonde's Identity}
+
+Vandermonde's identity states:
+\[
+\binom{m+n}{k} = \sum_{j=0}^{k} \binom{m}{j} \binom{n}{k-j}.
+\]
+
+\textbf{Story Proof:} Consider choosing a committee of \(k\) members from a group of \(m\) men and \(n\) women. If the committee has \(j\) men, then the remaining \(k-j\) members must be women. The right-hand side sums over all possible values of \(j\), showing different ways to form the committee.
+
+\subsubsection{Partnerships}
+
+We show:
+\[
+\frac{(2n)!}{2^n \cdot n!} = (2n-1)(2n-3) \cdots 3 \cdot 1.
+\]
+
+\textbf{Story Proof:} Consider breaking \(2n\) people into \(n\) partnerships. First, line them up, and pair the first two, the next two, and so on. This overcounts by \(n! \cdot 2^n\) because the order of pairs and the order within pairs doesn't matter. Alternatively, pick the first partner from \(2n-1\), the next from \(2n-3\), and so on, yielding the right-hand side.
+
+\subsection{Classical Problems on Probability}
+
+\subsubsection{The Birthday Problem}
+
+\textit{What is the minimum number of people required to have a 50\% chance of at least two people sharing the same birthday?} \\
+
+The total number of ways to assign birthdays to \(n\) people (assuming 365 possible days) is \(365^n\). The probability that no two people share the same birthday can be computed by considering that the first person can have any of the 365 days, the second person can have 364 remaining days, the third person 363, and so on. The probability that all \(n\) people have distinct birthdays is:
+
+\[
+P(\text{no shared birthdays}) = \frac{365}{365} \cdot \frac{364}{365} \cdot \frac{363}{365} \cdots \frac{365-n+1}{365}.
+\]
+
+The probability of at least one birthday clash is:
+\[
+P(\text{at least one shared birthday}) = 1 - P(\text{no shared birthdays}).
+\]
+
+We seek the smallest \(n\) such that \(P(\text{at least one shared birthday}) \geq 0.5\). This gives the inequality:
+
+\[
+1 - \frac{365}{365} \cdot \frac{364}{365} \cdot \frac{363}{365} \cdots \geq 0.5.
+\]
+
+Solving numerically, we find that \(n = 23\) gives a probability slightly greater than 0.5. \\
+
+With just 23 people, the probability of at least two people sharing the same birthday is about 50\%. This counterintuitive result occurs because with 23 people, there are many possible pairs, and the chance of any two people sharing a birthday grows rapidly as the number of people increases.
+
+\subsubsection{Newton-Pepys Problem}
+
+\textit{Which event has the highest probability?
+\begin{itemize}
+    \item A: At least one 6 appears when 6 dice are rolled.
+    \item B: At least two 6's appear when 12 dice are rolled.
+    \item C: At least three 6's appear when 18 dice are rolled.
+\end{itemize}}
+
+The probability of getting at least \(k\) sixes when rolling \(n\) dice can be computed using the binomial distribution. For each die, the probability of rolling a 6 is \(p = \frac{1}{6}\), and the probability of not rolling a 6 is \(\frac{5}{6}\). The probability of getting exactly \(k\) sixes in \(n\) dice is:
+
+\[
+P(\text{exactly } k \text{ sixes}) = \binom{n}{k} p^k (1-p)^{n-k}.
+\]
+
+To calculate the probability of getting at least \(k\) sixes, we compute:
+
+\[
+P(\text{at least } k \text{ sixes}) = 1 - P(\text{fewer than } k \text{ sixes}).
+\]
+
+For each case:
+\begin{itemize}
+    \item For \(n = 6\), \(k = 1\):
+    \[
+    P(\text{at least one 6}) = 1 - \left(\frac{5}{6}\right)^6 \approx 0.6651.
+    \]
+    \item For \(n = 12\), \(k = 2\):
+    \[
+    P(\text{at least two 6's}) = 1 - \sum_{i=0}^{1} \binom{12}{i} \left(\frac{1}{6}\right)^i \left(\frac{5}{6}\right)^{12-i} \approx 0.6187.
+    \]
+    \item For \(n = 18\), \(k = 3\):
+    \[
+    P(\text{at least three 6's}) = 1 - \sum_{i=0}^{2} \binom{18}{i} \left(\frac{1}{6}\right)^i \left(\frac{5}{6}\right)^{18-i} \approx 0.5973.
+    \]
+\end{itemize}
+
+\subsubsection{De Montmort's Matching Problem}
+
+\textit{Consider a deck of \(n\) cards labeled from 1 to \(n\). You flip over the cards one by one, saying the numbers 1 through \(n\) as you do. You win if, at some point, the number you say matches the number on the card. What is the probability of winning?} \\
+
+Let \(A_i\) be the event that the \(i\)-th card is in position \(i\) (i.e., a match for card \(i\)). We are interested in the probability of the union of these events:
+\[
+P\left(\bigcup_{i=1}^n A_i\right),
+\]
+which is the probability that at least one card is in its correct position. To calculate this, we will use the inclusion-exclusion principle. \\
+
+The inclusion-exclusion formula for the union of \(n\) events is:
+\begin{align*}
+    P\left(\bigcup_{i=1}^n A_i\right) & = \sum_{i=1}^n P(A_i) - \sum_{1 \leq i < j \leq n} P(A_i \cap A_j)  + \sum_{1 \leq i < j < k \leq n} P(A_i \cap A_j \cap A_k) \\
+    & \quad - \cdots + (-1)^{n+1} P(A_1 \cap A_2 \cap \cdots \cap A_n).
+    \end{align*}
+    
+Since the problem is symmetric, the probabilities of individual intersections of events \(A_i\) are the same for any \(i\), and the expression simplifies considerably.\\
+
+The probability that the \(i\)-th card is in the \(i\)-th position (i.e., a match) is:
+\[
+P(A_i) = \frac{1}{n}.
+\]
+This is because there are \(n!\) possible orderings of the deck, and in \((n-1)!\) of them, card \(i\) is in position \(i\) (with the remaining \(n-1\) cards arranged freely).\\
+
+Next, consider the probability that two specific cards, \(i\) and \(j\), are both in their correct positions. If both cards \(i\) and \(j\) are fixed in positions \(i\) and \(j\), there are \((n-2)!\) favorable arrangements for the remaining \(n-2\) cards, so:
+\[
+P(A_i \cap A_j) = \frac{(n-2)!}{n!} = \frac{1}{n(n-1)}.
+\]
+
+Similarly, the probability that three specific cards, \(i\), \(j\), and \(k\), are all in their correct positions is:
+\[
+P(A_i \cap A_j \cap A_k) = \frac{(n-3)!}{n!} = \frac{1}{n(n-1)(n-2)}.
+\]
+
+Thus, the inclusion-exclusion formula for the union becomes:
+\[
+P\left(\bigcup_{i=1}^n A_i\right) = \sum_{i=1}^n \frac{1}{n} - \sum_{1 \leq i < j \leq n} \frac{1}{n(n-1)} + \sum_{1 \leq i < j < k \leq n} \frac{1}{n(n-1)(n-2)} - \cdots + (-1)^{n+1} \frac{1}{n!}.
+\]
+
+This simplifies to:
+\[
+P\left(\bigcup_{i=1}^n A_i\right) = 1 - \frac{1}{2!} + \frac{1}{3!} - \cdots + \frac{(-1)^{n+1}}{n!}.
+\]
+
+This is the partial sum of the Taylor series expansion of \(e^{-1}\), which is given by:
+\[
+e^{-1} = 1 - \frac{1}{1!} + \frac{1}{2!} - \frac{1}{3!} + \cdots.
+\]
+
+Thus, for large \(n\), the probability of winning (i.e., having at least one match) is approximately:
+\[
+P\left(\bigcup_{i=1}^n A_i\right) \approx 1 - \frac{1}{e}.
+\]
+
+Since \(1 - \frac{1}{e} \approx 0.6321\), the probability of winning the game is about 63.2\%.
+

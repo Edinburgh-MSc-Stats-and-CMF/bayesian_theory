@@ -1,0 +1,593 @@
+\section{Conditional Probability}
+
+Conditional probability is a fundamental concept in probability theory that allows us to update our beliefs about an event based on new information or evidence. It helps in understanding how the probability of one event changes in the presence of another event. This concept is particularly useful in various fields such as statistics, machine learning, and decision-making, where we often deal with uncertain events and seek to refine our predictions.
+
+\begin{definition}  
+If \( A \) and \( B \) are events with \( P(B) > 0 \), then the conditional probability of \( A \) given \( B \), denoted by \( P(A|B) \), is defined as:
+
+\[
+P(A|B) = \frac{P(A \cap B)}{P(B)}.
+\]
+\end{definition}
+
+In this definition, \( A \) is the event whose uncertainty we want to update, and \( B \) is the evidence we observe (or want to treat as given). We refer to \( P(A) \) as the prior probability of \( A \) and \( P(A|B) \) as the posterior probability of \( A \). The term "prior" indicates our initial belief about the event before incorporating the new evidence, while "posterior" reflects our updated belief after taking the evidence into account.\\
+
+Similarly, we can express the conditional probability of event \( B \) given event \( A \) as:
+
+\[
+P(B|A) = \frac{P(A \cap B)}{P(A)} \quad \text{for } P(A) > 0.
+\]
+
+From these two definitions, we can express \( P(A \cap B) \) in two different ways:
+\[
+P(A \cap B) = P(A|B) \cdot P(B)
+\]
+\[
+P(A \cap B) = P(B|A) \cdot P(A)
+\]
+
+Since both expressions represent the same quantity, we can set them equal to each other:
+
+\[
+P(A|B) \cdot P(B) = P(B|A) \cdot P(A)
+\]
+
+Now, to isolate \( P(A|B) \), we divide both sides by \( P(B) \) (assuming \( P(B) > 0 \)):
+
+\[
+P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
+\]
+
+This is the formulation of \textbf{Bayes' theorem}, which expresses the conditional probability of event \( A \) given event \( B \) in terms of the conditional probability of event \( B \) given event \( A \), the prior probability of \( A \), and the marginal probability of \( B \):
+
+\[
+P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
+\]
+
+\begin{theorem}
+    If \( A \) and \( B \) are events such that \( P(B) > 0 \), Bayes' theorem states that:
+
+\[
+P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
+\]
+\end{theorem}
+
+\textbf{Explanation of the Terms:}
+
+\begin{itemize}
+    \item \( P(A|B) \): The posterior probability of \( A \) given \( B \), which reflects our updated belief about \( A \) after observing \( B \).
+    \item \( P(B|A) \): The likelihood, or the probability of observing \( B \) given that \( A \) is true. This measures how well \( A \) explains the observed evidence \( B \)
+    \item \( P(A) \): The prior probability of \( A \), representing our initial belief about \( A \) before considering the evidence \( B \).
+    \item \( P(B) \): The marginal probability of \( B \), which can be computed using the law of total probability, as described in the next theorem.
+\end{itemize}
+
+\textbf{Intuition Behind Bayes' Theorem:}\\
+
+Bayes' theorem allows us to revise our beliefs in light of new evidence. For example, suppose we want to determine the probability that a patient has a certain disease (event \( A \)) given that they tested positive for it (event \( B \)). Using Bayes' theorem, we can incorporate the accuracy of the test (the likelihood \( P(B|A) \)), our initial belief about the prevalence of the disease (the prior \( P(A) \)), and the overall rate of positive tests (the marginal \( P(B) \)) to arrive at a more informed estimate of the probability that the patient actually has the disease.
+
+\begin{theorem}
+    The law of total probability provides a way to compute the total probability of an event based on a partition of the sample space. It states that if \( B_1, B_2, \ldots, B_n \) are mutually exclusive events that form a complete partition of the sample space, then for any event \( A \):
+
+\[
+P(A) = \sum_{i=1}^n P(A|B_i) \cdot P(B_i).
+\]
+\end{theorem}
+
+\textbf{Explanation of the Terms:}
+
+\begin{itemize}
+    \item \( P(A) \): The total probability of the event \( A \).
+    \item \( P(A|B_i) \): The conditional probability of \( A \) given that the event \( B_i \) has occurred.
+    \item  \( P(B_i) \): The probability of each partition event \( B_i \).
+\end{itemize}
+
+\textbf{Intuition Behind Law of Total Probability:}\\
+
+The law of total probability helps us compute the probability of an event by considering all possible scenarios (the partition \( B_i \)) that could lead to that event. For instance, if we want to determine the probability that it will rain tomorrow (event \( A \)), we might partition the sample space based on different weather conditions (e.g., sunny, cloudy, or stormy). By calculating the probability of rain under each condition and weighting these probabilities by the likelihood of each condition occurring, we can obtain the overall probability of rain.
+
+\subsection{Classical Problems on Conditional Probability}
+
+\subsubsection{Which coin was tossed?}
+
+\textit{You have one fair coin and one biased coin that lands Heads with probability \( \frac{3}{4} \). You pick one of the coins at random and flip it three times. It lands Heads all three times. Given this information, what is the probability that the coin you picked is the fair one?}\\
+
+Let \( A \) be the event that the chosen coin lands Heads three times, and let \( F \) be the event that we picked the fair coin. We are interested in \( P(F | A) \), but it is easier to find \( P(A | F) \) and \( P(A | F^c) \) since it helps to know which coin we have; this suggests using Bayes’ rule and the law of total probability. Doing so, we have
+
+\[
+P(F | A) = \frac{P(A | F) P(F)}{P(A)}.
+\]
+
+By the law of total probability, 
+
+\[
+P(A) = P(A | F) P(F) + P(A | F^c) P(F^c).
+\]
+
+Given that \( P(F) = P(F^c) = \frac{1}{2} \), we can compute:
+
+\[
+P(A | F) = \left(\frac{1}{2}\right)^3 = \frac{1}{8},
+\]
+
+\[
+P(A | F^c) = \left(\frac{3}{4}\right)^3 = \frac{27}{64}.
+\]
+
+Thus, we have
+
+\[
+P(A) = P(A | F) P(F) + P(A | F^c) P(F^c) = \left(\frac{1}{8} \cdot \frac{1}{2}\right) + \left(\frac{27}{64} \cdot \frac{1}{2}\right) = \frac{1}{16} + \frac{27}{128}.
+\]
+
+Calculating this gives:
+
+\[
+P(A) = \frac{8}{128} + \frac{27}{128} = \frac{35}{128}.
+\]
+
+Now, substituting back into Bayes' theorem:
+
+\[
+P(F | A) = \frac{P(A | F) P(F)}{P(A)} = \frac{\left(\frac{1}{8}\right) \cdot \left(\frac{1}{2}\right)}{\frac{35}{128}} = \frac{\frac{1}{16}}{\frac{35}{128}} = \frac{128}{560} \approx 0.23.
+\]
+
+Before flipping the coin, we thought we were equally likely to have picked the fair coin as the biased coin: \( P(F) = P(F^c) = \frac{1}{2} \). Upon observing three Heads, however, it becomes more likely that we’ve chosen the biased coin than the fair coin, so \( P(F | A) \) is only about \( 0.23 \). \\
+
+\textbf{Prior vs. Posterior:} It would not be correct in the calculation in the above example to say after the first step, \( P(A) = 1 \) because we know \( A \) happened. It is true that \( P(A|A) = 1 \), but \( P(A) \) is the prior probability of \( A \) and \( P(F) \) is the prior probability of \( F \)—both are the probabilities before we observe any data in the experiment. These must not be confused with posterior probabilities conditional on the evidence \( A \).
+
+\subsubsection{Testing a rare disease}
+
+Consider a rare disease that affects \(1\%\) of a population. A diagnostic test is available for this disease, which has the following characteristics:
+\begin{itemize}
+    \item The probability of testing positive if the person has the disease (true positive rate) is \(P(\text{Positive} | \text{Disease}) = 0.95\).
+    \item The probability of testing positive if the person does not have the disease (false positive rate) is \(P(\text{Positive} | \text{No Disease}) = 0.10\).
+\end{itemize}
+
+We want to find the probability that a person has the disease given that they tested positive for the disease, denoted as \(P(\text{Disease} | \text{Positive})\).\\
+
+Using Bayes' theorem, we can express the conditional probability as follows:
+
+\[
+P(\text{Disease} | \text{Positive}) = \frac{P(\text{Positive} | \text{Disease}) \cdot P(\text{Disease})}{P(\text{Positive})}.
+\]
+
+To compute this, we need to determine \(P(\text{Positive})\) using the law of total probability:
+
+\[
+P(\text{Positive}) = P(\text{Positive} | \text{Disease}) \cdot P(\text{Disease}) + P(\text{Positive} | \text{No Disease}) \cdot P(\text{No Disease}).
+\]
+
+Given that \(P(\text{Disease}) = 0.01\) and \(P(\text{No Disease}) = 1 - P(\text{Disease}) = 0.99\), we can substitute the values:
+
+\[
+P(\text{Positive}) = (0.95 \cdot 0.01) + (0.10 \cdot 0.99) = 0.0095 + 0.099 = 0.1085.
+\]
+
+Now we can calculate \(P(\text{Disease} | \text{Positive})\):
+
+\[
+P(\text{Disease} | \text{Positive}) = \frac{0.95 \cdot 0.01}{0.1085} = \frac{0.0095}{0.1085} \approx 0.0875.
+\]
+
+Thus, the probability that a person has the disease given that they tested positive is approximately \(8.75\%\).\\
+
+Now, let's consider the situation where the same person tests positive a second time. We need to update our previous result using Bayes' theorem again. \\
+
+Let \(B\) represent the event that the person tests positive again. We want to find \(P(\text{Disease} | B \cap \text{Positive})\). \\
+
+Using the law of total probability, we find \(P(B | \text{Disease})\) and \(P(B | \text{No Disease})\): 
+
+\[
+P(B | \text{Disease}) = P(\text{Positive} | \text{Disease}) = 0.95,
+\]
+\[
+P(B | \text{No Disease}) = P(\text{Positive} | \text{No Disease}) = 0.10.
+\]
+
+Now, we can calculate the probability of a second positive test:
+
+\[
+P(B) = P(B | \text{Disease}) \cdot P(\text{Disease} | \text{Positive}) + P(B | \text{No Disease}) \cdot P(\text{No Disease} | \text{Positive}).
+\]
+
+Calculating \(P(\text{No Disease} | \text{Positive})\):
+
+\[
+P(\text{No Disease} | \text{Positive}) = 1 - P(\text{Disease} | \text{Positive}) \approx 1 - 0.0875 = 0.9125.
+\]
+
+Substituting in the values:
+
+\[
+P(B) = (0.95 \cdot 0.0875) + (0.10 \cdot 0.9125) \approx 0.083125 + 0.09125 = 0.174375.
+\]
+
+Now we can find \(P(\text{Disease} | B)\):
+
+\[
+P(\text{Disease} | B) = \frac{P(B | \text{Disease}) \cdot P(\text{Disease} | \text{Positive})}{P(B)} = \frac{0.95 \cdot 0.0875}{0.174375} \approx \frac{0.083125}{0.174375} \approx 0.477.
+\]
+
+Thus, after a second positive test, the updated probability that the person has the disease is approximately \(47.7\%\).\\
+
+This illustrates how Bayes' theorem allows us to update our beliefs about the probability of having a disease as new information becomes available. Initially, the probability was low due to the rarity of the disease, but successive positive test results significantly increased the probability of having the disease.
+
+\subsubsection{Monty-Hall Problem}
+
+The Monty Hall problem is a famous probability puzzle based on a game show scenario. The setup is as follows: \\
+
+A contestant is presented with three doors: Behind one door is a car (the prize), and behind the other two doors are goats (non-prizes). The contestant picks one door, say Door 1. The host, Monty Hall, who knows what is behind each door, opens another door (say Door 3), revealing a goat. The contestant is then given a choice: stick with their original choice (Door 1) or switch to the remaining closed door (Door 2).\\
+
+We want to determine whether the contestant should stick with their original choice or switch doors to maximize their chances of winning the car.\\
+
+Let's define the events:
+
+\begin{itemize}
+    \item Let \(C_i\) be the event that the car is behind Door \(i\) for \(i = 1, 2, 3\).
+    \item Let \(D\) be the event that Monty opens Door 3.
+\end{itemize}
+
+We want to find the conditional probability \(P(C_1 | D)\), the probability that the car is behind Door 1 given that Monty opens Door 3.\\
+
+According to Bayes' theorem, we have:
+
+\[
+P(C_1 | D) = \frac{P(D | C_1) \cdot P(C_1)}{P(D)}.
+\]
+
+
+1. \textit{Prior Probability}:\\
+
+   The probability that the car is behind any specific door is equal:
+
+   \[
+   P(C_1) = P(C_2) = P(C_3) = \frac{1}{3}.
+   \]
+
+2. \textit{Likelihood}:\\
+
+   We need to find \(P(D | C_1)\), the probability that Monty opens Door 3 given that the car is behind Door 1. If the car is behind Door 1, Monty can open either Door 2 or Door 3 (both have goats). Thus, he will open Door 3 with probability \(1/2\):
+
+   \[
+   P(D | C_1) = \frac{1}{2}.
+   \]
+
+   Now, we calculate \(P(D | C_2)\) and \(P(D | C_3)\):\\
+
+   (a) If the car is behind Door 2, Monty must open Door 3 (the only door he can open that reveals a goat):
+
+   \[
+   P(D | C_2) = 1.
+   \]
+
+   (b) If the car is behind Door 3, Monty cannot open Door 3, so:\\
+
+   \[
+   P(D | C_3) = 0.
+   \]
+
+3. \textit{Total Probability}:\\
+
+   Now we need to calculate \(P(D)\):
+
+   \[
+   P(D) = P(D | C_1) \cdot P(C_1) + P(D | C_2) \cdot P(C_2) + P(D | C_3) \cdot P(C_3).
+   \]
+
+   Substituting the values we found:
+
+   \[
+   P(D) = \left(\frac{1}{2} \cdot \frac{1}{3}\right) + (1 \cdot \frac{1}{3}) + (0 \cdot \frac{1}{3}) = \frac{1}{6} + \frac{1}{3} = \frac{1}{6} + \frac{2}{6} = \frac{3}{6} = \frac{1}{2}.
+   \]
+
+Now we can use Bayes' theorem:
+
+\[
+P(C_1 | D) = \frac{P(D | C_1) \cdot P(C_1)}{P(D)} = \frac{\left(\frac{1}{2}\right) \cdot \left(\frac{1}{3}\right)}{\frac{1}{2}} = \frac{\frac{1}{6}}{\frac{1}{2}} = \frac{1}{3}.
+\]
+
+Thus, \(P(C_1 | D) = \frac{1}{3}\).
+
+Next, we calculate \(P(C_2 | D)\):
+
+\[
+P(C_2 | D) = \frac{P(D | C_2) \cdot P(C_2)}{P(D)} = \frac{1 \cdot \frac{1}{3}}{\frac{1}{2}} = \frac{\frac{1}{3}}{\frac{1}{2}} = \frac{2}{3}.
+\]
+
+The probabilities are:
+
+\[
+P(C_1 | D) = \frac{1}{3}, \quad P(C_2 | D) = \frac{2}{3}.
+\]
+
+This means that if the contestant switches to Door 2 after Monty reveals Door 3, their chances of winning the car increase to \( \frac{2}{3} \). Therefore, it is advantageous for the contestant to switch doors, rather than stick with their original choice.\\
+
+The intuitive reasoning behind this is: Monty knows where the car is and always opens a door with a goat behind it. This action provides additional information. If your initial choice was wrong (which happens 2/3 of the time), Monty has only one option to reveal a goat. If you switch after Monty reveals a goat, you effectively take advantage of the higher probability that the car is behind one of the doors you didn't initially choose. By switching, you win the car 2/3 of the time.
+
+\subsubsection{Gambler's Ruin Problem}
+
+Consider a gambler (Player 1) who starts with \( m \) dollars and plays a game against another player (Player 2) who has \( N - m \) dollars. Player 1 wins each round with a probability \( p \) and loses with probability \( q = 1 - p \). We aim to find the probability \( P(m) \) that Player 1 eventually reaches \( N \) dollars before going broke.\\
+
+Let \( P(m) \) be the probability of reaching \( N \) dollars starting with \( m \) dollars. The boundary conditions are:
+\begin{align*}
+P(0) &= 0 \quad (\text{if Player 1 has no money, they cannot win}) \\
+P(N) &= 1 \quad (\text{if Player 1 has } N \text{ dollars, they have won})
+\end{align*}
+
+Using the law of total probability, we can express the probability recursively:
+\[
+P(m) = p P(m+1) + q P(m-1)
+\]
+
+Rearranging the above equation gives:
+\[
+p P(m+1) - P(m) + q P(m-1) = 0
+\]
+This is a second-order linear difference equation. The general solution has the form:
+\[
+P(m) = A + B r^m
+\]
+where \( r = \frac{q}{p} \) and \( A \) and \( B \) are constants determined by the boundary conditions. \\
+
+1. Using \( P(0) = 0 \):
+   \[
+   0 = A + B r^0 \implies A + B = 0 \implies A = -B
+   \]
+
+2. Using \( P(N) = 1 \):
+   \[
+   1 = -B + B r^N \implies 1 = B (r^N - 1) \implies B = \frac{1}{r^N - 1}
+   \]
+   Thus, substituting \( A \):
+   \[
+   A = -B = -\frac{1}{r^N - 1}
+   \]
+
+We have:
+\[
+P(m) = -\frac{1}{r^N - 1} + \frac{1}{r^N - 1} r^m = \frac{r^m - 1}{r^N - 1}
+\]
+Substituting \( r = \frac{q}{p} \):
+\[
+P(m) = \frac{\left( \frac{q}{p} \right)^m - 1}{\left( \frac{q}{p} \right)^N - 1}
+\]
+
+In the special case where the game is fair, we have \( p = \frac{1}{2} \) and \( q = \frac{1}{2} \). Substituting these values into our probability expression, we find:
+\[
+r = \frac{q}{p} = \frac{\frac{1}{2}}{\frac{1}{2}} = 1
+\]
+The expression for \( P(m) \) becomes indeterminate as it involves division by zero. Therefore, we need to analyze the limits as \( p \) approaches \( \frac{1}{2} \).\\
+
+Taking the limit:
+\[
+P(m) = \lim_{p \to \frac{1}{2}} \frac{\left( \frac{q}{p} \right)^m - 1}{\left( \frac{q}{p} \right)^N - 1}
+\]
+This can be rewritten using L'Hôpital's Rule to resolve the \( \frac{0}{0} \) indeterminate form:
+\[
+P(m) = \frac{m}{N}
+\]
+Thus, in a fair game, the probability that Player 1 eventually reaches \( N \) dollars starting with \( m \) dollars is:
+\[
+P(m) = \frac{m}{N}
+\]
+
+This result intuitively means that in a fair game, the chances of winning are directly proportional to the amount of money the player starts with relative to the total amount.
+
+\subsubsection{Prosecutor's Fallacy}
+
+The prosecutor's fallacy refers to a common misunderstanding of probability, especially in the context of legal cases. It arises when the prosecution misinterprets statistical evidence, leading to an exaggerated perception of guilt. This fallacy is vividly illustrated in the case of Sally Clark, a British solicitor wrongfully convicted of murdering her two infant sons.\\
+
+Sally Clark was accused of murdering her two sons, Christopher and Harry, who died suddenly within a span of 16 months. The prosecution's case heavily relied on statistical evidence suggesting that the probability of two children dying of natural causes in a family with no known health issues was extremely low—approximately 1 in 8500.\\
+
+To understand the prosecutor's fallacy using Bayes' theorem, we define the relevant events:
+
+\begin{itemize}
+    \item Let \( G \) be the event that Sally Clark is guilty of murder.
+    \item Let \( E \) be the event that two infants die under seemingly natural circumstances.
+\end{itemize}
+
+According to Bayes' theorem, we can express the probability of guilt given the evidence \( E \):
+
+\[
+P(G|E) = \frac{P(E|G) \cdot P(G)}{P(E)}
+\]
+
+Where:
+\begin{itemize}
+    \item \( P(G|E) \) is the posterior probability that Clark is guilty given the evidence of the two infant deaths.
+    \item \( P(E|G) \) is the likelihood of observing two infant deaths if she is guilty.
+    \item \( P(G) \) is the prior probability of her being guilty (which is often assumed to be low in cases without strong evidence).
+    \item \( P(E) \) is the overall probability of observing two infant deaths in any family.
+\end{itemize}
+
+In the Clark case, the prosecution focused on \( P(E|G) \) without properly considering \( P(E) \). They asserted that the rarity of two natural infant deaths was strong evidence of guilt. However, this neglects the base rate of infant deaths in the general population and the importance of prior probabilities. \\
+
+If the base rate \( P(E) \) is high due to natural causes, it significantly impacts the posterior probability \( P(G|E) \). The correct approach should have considered the conditional probabilities:
+
+\[
+P(E) = P(E|G) \cdot P(G) + P(E|G^c) \cdot P(G^c)
+\]
+
+Where \( G^c \) is the event that she is not guilty. The prosecution assumed \( P(E|G^c) \) was negligible, which is misleading.\\
+
+The misinterpretation of statistics led to a wrongful conviction. Sally Clark's case demonstrates that statistical evidence can be misleading when not contextualized appropriately. The rarity of an event does not imply that an individual is guilty; instead, it reflects the overall population dynamics.
+
+\subsubsection{Defense Attorney's Fallacy}
+
+The defense attorney's fallacy is a common misunderstanding in the interpretation of probabilities in legal contexts. It occurs when an attorney asserts that the probability of a defendant being innocent given a piece of evidence is high, based solely on the probability of that evidence occurring in the general population, without considering the prior probability of guilt.\\
+
+Bayes' theorem provides a mathematical framework for updating probabilities based on new evidence. It states:
+
+\[
+P(H|E) = \frac{P(E|H) \cdot P(H)}{P(E)}
+\]
+
+where:
+\begin{itemize}
+    \item \( H \) is the hypothesis (e.g., the defendant is guilty).
+    \item \( E \) is the evidence (e.g., a DNA match).
+\end{itemize}
+
+In a legal context, a defense attorney might argue that because DNA evidence matches the defendant, the probability of the defendant being innocent is high. This reasoning is flawed as it ignores the prior probabilities of guilt and innocence.\\
+
+Consider the following scenario:
+\begin{itemize}
+    \item There is a rare type of crime where only 1 in 1,000 people commit it, i.e., \( P(G) = 0.001 \) (the prior probability that the defendant is guilty).
+    \item  If the defendant is guilty, the probability that the DNA evidence matches is \( P(E|G) = 0.95 \).
+    \item If the defendant is innocent, the probability that the DNA evidence matches due to chance is \( P(E|I) = 0.01 \) (where \( I \) represents innocence).
+\end{itemize}
+
+We want to find \( P(G|E) \), the probability that the defendant is guilty given the DNA evidence matches.
+
+First, we calculate \( P(E) \) using the law of total probability:
+
+\[
+P(E) = P(E|G) \cdot P(G) + P(E|I) \cdot P(I)
+\]
+
+where \( P(I) = 1 - P(G) = 0.999 \).
+
+Substituting the values:
+
+\[
+P(E) = (0.95 \cdot 0.001) + (0.01 \cdot 0.999)
+\]
+
+Calculating:
+
+\[
+P(E) = 0.00095 + 0.00999 = 0.01094
+\]
+
+Now we apply Bayes' theorem:
+
+\[
+P(G|E) = \frac{P(E|G) \cdot P(G)}{P(E)}
+\]
+
+Substituting the values:
+
+\[
+P(G|E) = \frac{0.95 \cdot 0.001}{0.01094}
+\]
+
+Calculating:
+
+\[
+P(G|E) \approx \frac{0.00095}{0.01094} \approx 0.0869
+\]
+
+Despite the DNA evidence strongly suggesting a match (with \( P(E|G) = 0.95 \)), the probability that the defendant is guilty given this evidence is only approximately \( 8.69\% \). This illustrates the defense attorney's fallacy: simply pointing to the DNA match without considering the base rates of guilt can lead to erroneous conclusions about a defendant's innocence or guilt.
+
+\subsubsection{Simpson's Paradox}
+
+Simpson's Paradox occurs when a trend evident in several groups reverses when the groups are combined. This paradox highlights the importance of considering the underlying structure of data when interpreting results. Bayes' theorem can be employed to elucidate this phenomenon by examining conditional probabilities.\\
+
+Consider two doctors, Dr. A and Dr. B, treating two groups of patients (Group 1 and Group 2). Below is the performance data: \\
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{Group} & \textbf{Dr. A (Successful)} & \textbf{Dr. A (Total)} & \textbf{Dr. B (Successful)} & \textbf{Dr. B (Total)} \\
+        \hline
+        Group 1 & 81 & 87 & 234 & 270 \\
+        Group 2 & 192 & 263 & 55 & 80 \\
+        \hline
+    \end{tabular}
+    \caption{Performance of Doctors A and B}
+\end{table}
+
+Calculating the success rates for each doctor in each group:
+For Doctor A in Group 1:
+\[
+P(\text{Success} | \text{Doctor A, Group 1}) = \frac{81}{87} \approx 0.9310
+\]
+
+For Doctor B in Group 1:
+\[
+P(\text{Success} | \text{Doctor B, Group 1}) = \frac{234}{270} \approx 0.8667
+\]
+
+For Doctor A in Group 2:
+\[
+P(\text{Success} | \text{Doctor A, Group 2}) = \frac{192}{263} \approx 0.7300
+\]
+
+For Doctor B in Group 2:
+\[
+P(\text{Success} | \text{Doctor B, Group 2}) = \frac{55}{80} = 0.6875
+\]
+
+In both groups, Doctor A outperforms Doctor B. However, when we combine the results across both groups, we find:
+\[
+\text{Total Successes for Doctor A} = 81 + 192 = 273
+\]
+\[
+\text{Total Treatments for Doctor A} = 87 + 263 = 350
+\]
+\[
+P(\text{Success} | \text{Doctor A}) = \frac{273}{350} \approx 0.7800
+\]
+
+\[
+\text{Total Successes for Doctor B} = 234 + 55 = 289
+\]
+\[
+\text{Total Treatments for Doctor B} = 270 + 80 = 350
+\]
+\[
+P(\text{Success} | \text{Doctor B}) = \frac{289}{350} \approx 0.8257
+\]
+
+In this case, Doctor A appears better within each group, but the overall success rate for Doctor B is higher when considering the distribution of patients treated.\\
+
+We have seen this paradox in real-life scenarios multiple times. In the 1970s, the University of California, Berkeley, observed that men were admitted at a higher overall rate than women. However, within most departments, women were admitted at a higher rate than men. Research shows that within any age group, cigarette smokers have higher mortality rates than cigar smokers. However, because cigarette smokers are generally younger than cigar smokers, the overall mortality rate for cigarette smokers can appear lower when not controlling for age. The main reason behind this paradox is that the sizes of groups is different!\\
+
+\subsubsection{Trevsky and Kanheman Problem}
+
+The Linda problem, presented by Tversky and Kahneman, illustrates a common cognitive bias known as the conjunction fallacy. It involves a character named Linda and asks respondents to assess the probability of certain scenarios involving her.\\
+
+Linda is described as a 31-year-old single woman, outspoken, and very bright. She majored in philosophy, and as a student, she was deeply concerned with issues of discrimination and social justice.\\
+
+The following options are presented:
+\begin{enumerate}
+    \item Linda is a bank teller.
+    \item Linda is a bank teller and is active in the feminist movement.
+\end{enumerate}
+
+Many people mistakenly choose the second option, believing it is more probable, despite the fact that the probability of being a bank teller and active in the feminist movement (a conjunction) cannot be greater than the probability of being just a bank teller. Let:
+\begin{itemize}
+    \item \( A \): The event that Linda is a bank teller.
+    \item \( B \): The event that Linda is a bank teller and is active in the feminist movement.
+\end{itemize}
+
+We want to find \( P(B | A) \), the probability of \( B \) given \( A \). By the definition of conditional probability:
+\[
+P(B | A) = \frac{P(A \cap B)}{P(A)}
+\]
+Where:
+\begin{itemize}
+    \item \( P(A \cap B) \): The joint probability of both events occurring.
+    \item \( P(A) \): The probability that Linda is a bank teller.
+\end{itemize}
+
+Since \( B \) is a subset of \( A \):
+\[
+P(A \cap B) = P(B)
+\]
+
+Thus, we have:
+\[
+P(B | A) = \frac{P(B)}{P(A)}
+\]
+
+In this case, since people believe Linda is more likely to be both a bank teller and active in the feminist movement, they might estimate \( P(B) \) based on their impression of Linda rather than the actual probabilities. \\
+
+Assuming:
+\begin{itemize}
+    \item \( P(A) \) (Linda being a bank teller) is more substantial than \( P(B) \) (Linda being a bank teller and a feminist).
+    \item \( P(B | A) \) (the probability of being a bank teller and a feminist given that she is a bank teller) can’t exceed \( P(A) \).
+\end{itemize}
+
+The Linda problem demonstrates the conjunction fallacy where respondents incorrectly assess \( P(B | A) \) to be more probable than \( P(A) \). In reality, the probability of two events occurring together cannot be greater than the probability of either event occurring alone, which highlights the importance of understanding conditional probabilities and cognitive biases in decision-making.
