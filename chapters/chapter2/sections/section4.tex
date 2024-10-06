@@ -1,1 +1,666 @@
 \section{Moments}
+
+Let \( X \) be a random variable. 
+
+\begin{definition}
+    \begin{itemize}
+        \item The mean, also called the \textit{expected value}, is the average value of the random variable. It is defined as:
+        \[
+        \mu = \mathbb{E}[X] = \int_{-\infty}^{\infty} x f_X(x) \, dx
+        \]
+        where \( f_X(x) \) is the probability density function (pdf) of \( X \) in the continuous case, or
+        \[
+        \mu = \mathbb{E}[X] = \sum_{x \in \text{Range}(X)} x P(X = x)
+        \]
+        in the discrete case.
+        \item  The median is the value that separates the higher half from the lower half of the distribution. Formally, the median \( m \) satisfies:
+        \[
+        P(X \leq m) = 0.5
+        \]
+        In other words, 50\% of the probability mass is below the median. 
+        \item The mode is the value of \( X \) that occurs with the highest frequency, or the value at which the probability density (or mass) function achieves its maximum:
+        \[
+        \text{Mode} = \arg \max_x f_X(x)
+        \]
+        where \( f_X(x) \) is the pdf in the continuous case or the probability mass function (pmf) in the discrete case.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    Let \( X \) be a random variable with mean \( \mu = E(X) \). The \textit{variance} of \( X \), denoted as \( \text{Var}(X) \) or \( \sigma^2 \), is defined as:
+
+\[
+\text{Var}(X) = E\left[(X - \mu)^2\right] = E(X^2) - \left(E(X)\right)^2.
+\]
+\end{definition}
+
+Variance measures the expected squared deviation of \( X \) from its mean \( \mu \).
+
+\begin{theorem}
+    Let \( X \) be a random variable with mean \( \mu \), and let \( m \) be a median of \( X \).
+\begin{itemize}
+    \item The value of \( c \) that minimizes the mean squared error \( E[(X - c)^2] \) is \( c = \mu \).
+    \item A value of \( c \) that minimizes the mean absolute error \( E[|X - c|] \) is \( c = m \).
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+    
+\textbf{(i) Minimizing the Mean Squared Error:}\\
+
+We want to minimize the mean squared error function:
+\[
+E[(X - c)^2] = \int_{-\infty}^{\infty} (x - c)^2 f_X(x) dx,
+\]
+where \( f_X(x) \) is the probability density function of \( X \). Expanding the square, we have:
+\[
+E[(X - c)^2] = \int_{-\infty}^{\infty} \left( (x - \mu)^2 + 2(x - \mu)(\mu - c) + (\mu - c)^2 \right) f_X(x) dx.
+\]
+Taking the derivative with respect to \( c \) and setting it to zero to find the minimizing value of \( c \):
+\[
+\frac{d}{dc} E[(X - c)^2] = -2 E[X - c] = -2 (\mu - c).
+\]
+Setting this equal to zero, we obtain \( c = \mu \). Therefore, the value of \( c \) that minimizes \( E[(X - c)^2] \) is the mean \( \mu \).\\
+
+\textbf{(ii) Minimizing the Mean Absolute Error:}\\
+
+Next, we want to minimize the mean absolute error function:
+\[
+E[|X - c|] = \int_{-\infty}^{\infty} |x - c| f_X(x) dx.
+\]
+To minimize this, we take the derivative of \( E[|X - c|] \) with respect to \( c \) and analyze the behavior of the function. The derivative is given by:
+\[
+\frac{d}{dc} E[|X - c|] = \int_{-\infty}^{\infty} \text{sign}(x - c) f_X(x) dx,
+\]
+where \( \text{sign}(x - c) \) is \( -1 \) for \( x < c \) and \( 1 \) for \( x > c \).
+
+For the derivative to be zero, we require that the proportion of values of \( X \) less than \( c \) equals the proportion of values greater than \( c \), i.e.,
+\[
+P(X \leq c) = P(X \geq c) = \frac{1}{2}.
+\]
+Thus, \( c \) must be a median of the distribution of \( X \). Therefore, the value of \( c \) that minimizes \( E[|X - c|] \) is a median \( m \) of \( X \).
+\end{proof}
+
+\subsection{Interpreting Moments}
+
+\begin{definition}
+    Let \( X \) be a random variable with mean \( \mu \) and variance \( \sigma^2 \). For any positive integer \( n \), we define the following:
+
+\begin{itemize}
+    \item The \textit{nth moment} of \( X \) is \( E(X^n) \).
+    \item The \textit{nth central moment} of \( X \) is \( E((X - \mu)^n) \).
+    \item The \textit{nth standardized moment} of \( X \) is \( E\left( \left( \frac{X - \mu}{\sigma} \right)^n \right) \).
+\end{itemize}
+
+In the previous sentence, "if it exists" is left implicit.
+\end{definition}
+
+In probability and statistics, the term \textit{moment} is borrowed from physics, where moments describe the distribution of mass at a distance from a reference point. For a random variable (r.v.) \( X \) with mean \( \mu \) and variance \( \sigma^2 \), moments offer insight into the characteristics of the distribution of \( X \). In particular, the mean is the first moment, and the variance is the second central moment.\\
+
+Let \( X \) be a discrete random variable with distinct possible values \( x_1, x_2, \dots, x_n \), and imagine a system where pebbles with masses \( m_j = P(X = x_j) \) are placed at each \( x_j \) on a number line. In this analogy, the mean \( E(X) \) corresponds to the \textit{center of mass} of the system, and the variance \( \text{Var}(X) \) corresponds to the \textit{moment of inertia} about the center of mass.\\
+
+In physics, the center of mass is given by:
+\[
+E(X) = \sum_{j=1}^{n} m_j x_j,
+\]
+while the moment of inertia about the center of mass is:
+\[
+\text{Var}(X) = \sum_{j=1}^{n} m_j (x_j - E(X))^2.
+\]
+Thus, the mean (first moment) of a random variable corresponds to the center of mass of a system of pebbles, and the variance (second central moment) corresponds to the moment of inertia about this center of mass.\\
+
+We now introduce the concept of skewness, which provides a single-number summary of asymmetry. 
+
+\begin{definition}
+    Skewness is based on the third moment and is defined as the third standardized moment of a random variable \( X \) with mean \( \mu \) and variance \( \sigma^2 \). The skewness is given by:
+    \[
+    \text{Skew}(X) = E\left( \left( \frac{X - \mu}{\sigma} \right)^3 \right).
+    \]    
+\end{definition}
+
+Standardizing by \( \sigma \) ensures that the skewness does not depend on the scale or location of \( X \), as \( \mu \) and \( \sigma \) already provide that information. This makes skewness invariant to the units in which \( X \) is measured (e.g., inches versus meters).\\
+
+To understand how skewness measures asymmetry, we need to first define symmetry in terms of random variables.\\
+
+\begin{definition}
+    We say that a random variable \( X \) has a symmetric distribution about \( \mu \) if \( X - \mu \) has the same distribution as \( \mu - X \). This implies:
+\[
+P(X \leq \mu) = P(X \geq \mu).
+\]
+For continuous random variables with probability density function (PDF) \( f \), symmetry about \( \mu \) can be expressed as:
+\[
+f(x) = f(2\mu - x), \quad \text{for all } x.
+\]
+\end{definition}
+
+The third standardized moment is taken as the definition of skewness because the first standardized moment is always zero. Positive skewness indicates a distribution with a long right tail relative to the left tail, while negative skewness indicates the reverse. Although higher standardized moments (like the fifth) could also measure skewness, the third standardized moment is typically easier to calculate and estimate from data.\\
+
+In addition to skewness, another important characteristic of a distribution is the heaviness of its tails. For a fixed variance, the question arises: is the variability driven by rare extreme events or by more frequent moderate deviations from the mean? This is a key consideration in risk management, especially in finance, where distributions with heavy tails (e.g., returns with heavy left tails due to rare but severe crises) must be accounted for to avoid disastrous consequences, such as those seen in the 2008 financial crisis.\\
+
+As with measuring skewness, no single measure can perfectly capture tail behavior, but there is a widely used summary based on the fourth standardized moment. This measure is known as \textit{kurtosis}.
+
+\begin{definition}
+    The \textit{kurtosis} of a random variable \( X \) with mean \( \mu \) and variance \( \sigma^2 \) is a shifted version of the fourth standardized moment of \( X \):
+\[
+\text{Kurt}(X) = E\left( \left( \frac{X - \mu}{\sigma} \right)^4 \right) - 3.
+\]
+\end{definition}
+
+The reason for subtracting 3 is that it adjusts the kurtosis of a normal distribution to 0. In other words, a normal distribution is the benchmark, and distributions with kurtosis greater than 0 are said to be \textit{leptokurtic} (having heavier tails), while those with kurtosis less than 0 are \textit{platykurtic} (having lighter tails).
+
+\begin{example}
+    Let \( X \sim N(\mu, \sigma^2) \), that is, \( X \) follows a normal distribution with mean \( \mu \) and variance \( \sigma^2 \). We want to compute the kurtosis of \( X \).\\
+
+We start by computing the fourth standardized moment:
+\[
+E\left( \left( \frac{X - \mu}{\sigma} \right)^4 \right).
+\]
+Since \( \frac{X - \mu}{\sigma} \sim N(0, 1) \), the random variable \( Z = \frac{X - \mu}{\sigma} \) is standard normal. The fourth moment of a standard normal distribution is given by:
+\[
+E(Z^4) = 3.
+\]
+Thus, the fourth standardized moment of \( X \) is:
+\[
+E\left( \left( \frac{X - \mu}{\sigma} \right)^4 \right) = 3.
+\]
+Now, applying the kurtosis formula:
+\[
+\text{Kurt}(X) = 3 - 3 = 0.
+\]
+Therefore, the kurtosis of any normal distribution is 0.
+\end{example}
+
+\subsection{Moment Generating Functions}
+
+Before studying \textit{Moment Generating Functions}, I recommend you to first understand the concept of a \textit{generating function}. For that, I recommend watching this amazing video by Grant Sanderson on his YouTube channel, 3Blue1Brown, titled \href{https://www.youtube.com/watch?v=bOXCLR3Wric}{\textit{Olympiad Level Counting}}.\cite{generatingfunction}
+
+\begin{definition}
+    Let \( X \) be a random variable. The \textit{moment generating function} (MGF) of \( X \), denoted by \( M_X(t) \), is defined as:
+\[
+M_X(t) = E\left(e^{tX}\right), \quad \text{for all } t \in \mathbb{R} \text{ such that } E\left(e^{tX}\right) \text{ exists}.
+\]
+The MGF can be used to derive the moments of \( X \). In particular, the \( n \)-th moment of \( X \) is given by:
+\[
+E(X^n) = \left. \frac{d^n}{dt^n} M_X(t) \right|_{t=0}.
+\]
+\end{definition}
+
+You might be wondering here - \textit{What's the interpretation of 't' in the expression of MGF?} The answer is - nothing! It's just a placeholder. Like you saw in the above example by 3Blue1Brown that $x$ was just a variable and had no interpretation, so is $t$ for us here. Using the concept of moments, we can revisit the ideas discussed above: \\
+
+The \textit{mean} (or expected value) of the random variable \( X \), denoted by \( \mu = E(X) \), is the first moment:
+\[
+\mu = M'_X(0) = \frac{d}{dt} M_X(t) \bigg|_{t=0}.
+\]
+
+The \textit{variance} of \( X \), denoted by \( \sigma^2 = \text{Var}(X) \), is the second central moment and can be expressed as:
+\[
+\sigma^2 = E\left((X - \mu)^2\right) = M''_X(0) - \left(M'_X(0)\right)^2.
+\]
+
+The \textit{skewness} of \( X \), denoted by \( \text{Skew}(X) \), is a measure of the asymmetry of the distribution and is defined using the third standardized moment:
+\[
+\text{Skew}(X) = \frac{E\left((X - \mu)^3\right)}{\sigma^3} = \frac{M'''_X(0) - 3M'_X(0)M''_X(0) + 2(M'_X(0))^3}{\sigma^3}.
+\]
+
+The \textit{kurtosis} of \( X \), denoted by \( \text{Kurt}(X) \), measures the "tailedness" of the distribution and is defined using the fourth standardized moment:
+\[
+\text{Kurt}(X) = \frac{E\left((X - \mu)^4\right)}{\sigma^4} - 3 = \frac{M^{(4)}_X(0) - 4M'_X(0)M'''_X(0) + 6M'_X(0)M''_X(0)^2 - 3(M'_X(0))^4}{\sigma^4} - 3.
+\]
+
+\subsubsection{Binomial Distribution}
+
+
+The moment generating function (MGF) of \( X \) is defined as:
+\[
+M_X(t) = E\left(e^{tX}\right) = \sum_{k=0}^{n} e^{tk} P(X = k).
+\]
+
+Substitute the PMF of the binomial distribution into the definition of the MGF:
+\[
+M_X(t) = \sum_{k=0}^{n} e^{tk} \binom{n}{k} p^k (1 - p)^{n - k}.
+\]
+
+Rearranging the terms:
+\[
+M_X(t) = \sum_{k=0}^{n} \binom{n}{k} (p e^t)^k (1 - p)^{n - k}.
+\]
+
+Notice that this is the binomial expansion of \( (1 - p + p e^t)^n \), which can be written as:
+\[
+M_X(t) = \left( 1 - p + p e^t \right)^n.
+\]
+
+\textbf{Mean}: The mean \( \mu = E(X) \) is the first derivative of the MGF evaluated at \( t = 0 \):
+    \[
+    \mu = M'_X(0) = \frac{d}{dt} \left( 1 - p + p e^t \right)^n \bigg|_{t=0}.
+    \]
+    
+    Differentiating the MGF:
+    \[
+    M'_X(t) = n \cdot \left( 1 - p + p e^t \right)^{n-1} \cdot p e^t.
+    \]
+    
+    Now, evaluate this at \( t = 0 \):
+    \[
+    M'_X(0) = n \cdot \left( 1 - p + p \cdot 1 \right)^{n-1} \cdot p \cdot 1 = n \cdot p.
+    \]
+    
+    Therefore, the mean is:
+    \[
+    \mu = E(X) = n p.
+    \]
+
+    \textbf{Variance}: The variance \( \sigma^2 = \text{Var}(X) \) is the second central moment, which can be computed as:
+    \[
+    \text{Var}(X) = M''_X(0) - \left( M'_X(0) \right)^2.
+    \]
+    
+    First, we compute the second derivative of the MGF:
+    \[
+    M''_X(t) = n \cdot \left[ n-1 \cdot \left( 1 - p + p e^t \right)^{n-2} \cdot (p e^t)^2 + \left( 1 - p + p e^t \right)^{n-1} \cdot p e^t \right].
+    \]
+    
+    Now, evaluate this at \( t = 0 \):
+    \[
+    M''_X(0) = n \cdot \left[ (n-1) \cdot \left( 1 - p + p \cdot 1 \right)^{n-2} \cdot p^2 + \left( 1 - p + p \cdot 1 \right)^{n-1} \cdot p \right].
+    \]
+    
+    Simplifying:
+    \[
+    M''_X(0) = n \cdot \left[ (n-1) \cdot p^2 + p \right] = n \cdot p \cdot \left[ (n-1) \cdot p + 1 \right] = n p (1 + (n-1) p).
+    \]
+    
+    Therefore, the variance is:
+    \[
+    \text{Var}(X) = M''_X(0) - (M'_X(0))^2 = n p (1 + (n-1) p) - (n p)^2.
+    \]
+    Simplifying further:
+    \[
+    \text{Var}(X) = n p (1 - p).
+    \]
+
+    \subsubsection{Poisson Distribution}
+
+    Let \( X \) be a random variable that follows a Poisson distribution with parameter \( \lambda > 0 \), i.e.,
+\[
+P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}, \quad k = 0, 1, 2, \dots
+\]
+
+The moment generating function (MGF) of \( X \) is defined as:
+\[
+M_X(t) = E\left(e^{tX}\right) = \sum_{k=0}^{\infty} e^{tk} \frac{\lambda^k e^{-\lambda}}{k!} = e^{-\lambda} \sum_{k=0}^{\infty} \frac{(\lambda e^t)^k}{k!}.
+\]
+This is a Taylor series expansion of \( e^{\lambda e^t} \), so the MGF becomes:
+\[
+M_X(t) = e^{\lambda(e^t - 1)}.
+\]
+
+\textbf{Mean:} The mean (or expected value) \( \mu = E(X) \) can be calculated as the first derivative of the MGF evaluated at \( t = 0 \):
+\[
+\mu = M'_X(0) = \frac{d}{dt} M_X(t) \bigg|_{t=0}.
+\]
+First, compute the derivative of \( M_X(t) \):
+\[
+M'_X(t) = \lambda e^t e^{\lambda(e^t - 1)} = \lambda e^{t + \lambda(e^t - 1)}.
+\]
+Evaluating at \( t = 0 \):
+\[
+M'_X(0) = \lambda e^{\lambda(1 - 1)} = \lambda.
+\]
+Thus, the mean of the Poisson distribution is:
+\[
+E(X) = \lambda.
+\]
+
+\textbf{Variance:} The variance \( \sigma^2 = \text{Var}(X) \) is the second central moment and can be calculated as:
+\[
+\sigma^2 = M''_X(0) - (M'_X(0))^2.
+\]
+First, compute the second derivative of \( M_X(t) \):
+\[
+M''_X(t) = \lambda e^t \left( \lambda e^t + 1 \right) e^{\lambda(e^t - 1)} = \lambda e^{t + \lambda(e^t - 1)} \left( \lambda e^t + 1 \right).
+\]
+Evaluating at \( t = 0 \):
+\[
+M''_X(0) = \lambda \left( \lambda + 1 \right).
+\]
+Thus, the variance of the Poisson distribution is:
+\[
+\text{Var}(X) = M''_X(0) - (M'_X(0))^2 = \lambda (\lambda + 1) - \lambda^2 = \lambda.
+\]
+
+\subsubsection{Hypergeometric Distribution}
+
+The MGF of the Hypergeometric distribution is not as straightforward to calculate due to the lack of independence in sampling without replacement. However, the mean and variance can still be derived from the combinatorial properties of the distribution as shown above.\\
+
+\textbf{Mean:}
+
+To compute the mean \( E(X) \), we use the fact that the Hypergeometric distribution can be thought of as sampling without replacement. Let \( X_i \) be an indicator variable for the \( i \)-th trial, such that:
+\[
+X_i = 
+\begin{cases} 
+1 & \text{if the } i \text{-th draw is a success}, \\ 
+0 & \text{otherwise}.
+\end{cases}
+\]
+Then, the total number of successes, \( X \), is the sum of these indicator variables:
+\[
+X = \sum_{i=1}^{n} X_i.
+\]
+
+Since the probability of success in each trial changes because we are sampling without replacement, the expectation of each \( X_i \) is:
+\[
+E(X_i) = \frac{K}{N}.
+\]
+Thus, the expected number of successes, or the mean of \( X \), is:
+\[
+E(X) = \sum_{i=1}^{n} E(X_i) = n \cdot \frac{K}{N}.
+\]
+This result can be interpreted as the product of the sample size \( n \) and the proportion of successes in the population \( \frac{K}{N} \), i.e., the expected number of successes in the sample.\\
+
+\textbf{Variance:}
+
+To compute the variance \( \text{Var}(X) \), we first compute \( E(X^2) \). From the definition of variance:
+\[
+\text{Var}(X) = E(X^2) - (E(X))^2.
+\]
+
+First, observe that:
+\[
+X = \sum_{i=1}^{n} X_i,
+\]
+so:
+\[
+E(X^2) = E\left( \left( \sum_{i=1}^{n} X_i \right)^2 \right).
+\]
+Expanding the square:
+\[
+E(X^2) = E\left( \sum_{i=1}^{n} X_i^2 + 2 \sum_{1 \leq i < j \leq n} X_i X_j \right).
+\]
+Since \( X_i^2 = X_i \) (because \( X_i \) is an indicator variable):
+\[
+E(X^2) = \sum_{i=1}^{n} E(X_i) + 2 \sum_{1 \leq i < j \leq n} E(X_i X_j).
+\]
+We already know \( E(X_i) = \frac{K}{N} \). Now, for \( E(X_i X_j) \), the probability that both the \( i \)-th and \( j \)-th draws are successes is:
+\[
+E(X_i X_j) = \frac{K}{N} \cdot \frac{K-1}{N-1}.
+\]
+Thus:
+\[
+E(X^2) = n \cdot \frac{K}{N} + 2 \cdot \binom{n}{2} \cdot \frac{K}{N} \cdot \frac{K-1}{N-1}.
+\]
+Simplifying the second term:
+\[
+E(X^2) = n \cdot \frac{K}{N} + n(n-1) \cdot \frac{K}{N} \cdot \frac{K-1}{N-1}.
+\]
+Now, using the formula for variance:
+\[
+\text{Var}(X) = E(X^2) - (E(X))^2,
+\]
+we substitute \( E(X) = \frac{nK}{N} \) and \( E(X^2) \) from above:
+\[
+\text{Var}(X) = n \cdot \frac{K}{N} + n(n-1) \cdot \frac{K}{N} \cdot \frac{K-1}{N-1} - \left( \frac{nK}{N} \right)^2.
+\]
+Simplifying the terms:
+\[
+\text{Var}(X) = \frac{nK}{N} \left( \frac{N-K}{N} \right) \cdot \frac{N-n}{N-1}.
+\]
+
+This expression includes the term \( \frac{N - n}{N - 1} \), which is a finite population correction factor that accounts for sampling without replacement.
+
+\subsubsection{Uniform Distribution}
+
+The moment generating function \( M_X(t) \) of a uniformly distributed random variable \( X \) is defined as:
+\[
+M_X(t) = E\left(e^{tX}\right) = \int_a^b e^{tx} f_X(x) \, dx.
+\]
+Substituting the PDF of \( X \), we get:
+\[
+M_X(t) = \frac{1}{b-a} \int_a^b e^{tx} \, dx.
+\]
+Evaluating this integral:
+\[
+M_X(t) = \frac{1}{b-a} \left[ \frac{e^{tx}}{t} \right]_a^b = \frac{1}{b-a} \left( \frac{e^{tb} - e^{ta}}{t} \right), \quad t \neq 0.
+\]
+For \( t = 0 \), \( M_X(0) = 1 \) (since the MGF at \( t = 0 \) must equal 1 for any distribution).\\
+
+\textbf{Mean:} To find the mean \( \mu = E(X) \), we differentiate \( M_X(t) \) with respect to \( t \) and evaluate at \( t = 0 \):
+\[
+\mu = M'_X(0) = \frac{d}{dt} \left[ \frac{1}{b-a} \left( \frac{e^{tb} - e^{ta}}{t} \right) \right] \bigg|_{t=0}.
+\]
+Using L'Hopital's rule to evaluate the limit as \( t \to 0 \), we get:
+\[
+\mu = \frac{b + a}{2}.
+\]
+Thus, the mean of a uniform distribution is:
+\[
+E(X) = \frac{b + a}{2}.
+\]
+
+\textbf{Variance:} To find the variance \( \text{Var}(X) = \sigma^2 \), we first compute the second moment \( E(X^2) \) by differentiating \( M_X(t) \) twice and evaluating at \( t = 0 \):
+\[
+E(X^2) = M''_X(0) = \frac{d^2}{dt^2} \left[ \frac{1}{b-a} \left( \frac{e^{tb} - e^{ta}}{t} \right) \right] \bigg|_{t=0}.
+\]
+Alternatively, we can compute the second moment directly from the definition:
+\[
+E(X^2) = \int_a^b x^2 f_X(x) \, dx = \frac{1}{b-a} \int_a^b x^2 \, dx = \frac{1}{b-a} \left[ \frac{x^3}{3} \right]_a^b = \frac{b^3 - a^3}{3(b-a)}.
+\]
+Simplifying, we get:
+\[
+E(X^2) = \frac{a^2 + ab + b^2}{3}.
+\]
+Now, using the formula for variance \( \text{Var}(X) = E(X^2) - (E(X))^2 \), we find:
+\[
+\text{Var}(X) = \frac{a^2 + ab + b^2}{3} - \left( \frac{a+b}{2} \right)^2 = \frac{(b-a)^2}{12}.
+\]
+Thus, the variance of a uniform distribution is:
+\[
+\text{Var}(X) = \frac{(b-a)^2}{12}.
+\]
+
+\subsubsection{Exponential Distribution}
+
+Let \( X \) be a random variable with the Exponential distribution, parameterized by the rate parameter \( \lambda > 0 \). The probability density function (PDF) of \( X \) is given by:
+\[
+f_X(x) =
+\begin{cases}
+\lambda e^{-\lambda x}, & x \geq 0, \\
+0, & x < 0.
+\end{cases}
+\]
+
+The moment generating function (MGF) of \( X \) is defined as:
+\[
+M_X(t) = E\left(e^{tX}\right) = \int_0^\infty e^{tx} \lambda e^{-\lambda x} dx.
+\]
+
+This integral simplifies as follows:
+\[
+M_X(t) = \lambda \int_0^\infty e^{x(t - \lambda)} dx.
+\]
+
+For convergence, we require \( t < \lambda \). The integral can be computed:
+\[
+M_X(t) = \lambda \left[ \frac{1}{-(t - \lambda)} e^{x(t - \lambda)} \right]_0^\infty = \frac{\lambda}{\lambda - t}, \quad t < \lambda.
+\]
+
+\textbf{Mean:}
+
+
+The mean \( \mu = E(X) \) is the first moment and is obtained by differentiating the MGF with respect to \( t \) and evaluating at \( t = 0 \):
+\[
+\mu = M'_X(0) = \frac{d}{dt} \left(\frac{\lambda}{\lambda - t}\right) \bigg|_{t=0}.
+\]
+Differentiating, we find:
+\[
+M'_X(t) = \frac{\lambda}{(\lambda - t)^2}.
+\]
+Thus,
+\[
+\mu = M'_X(0) = \frac{1}{\lambda}.
+\]
+Therefore, the mean of the Exponential distribution is:
+\[
+E(X) = \frac{1}{\lambda}.
+\]
+
+\textbf{Variance:}
+
+The variance \( \sigma^2 = \text{Var}(X) \) is the second central moment, which can be calculated from the second derivative of the MGF:
+\[
+M''_X(t) = \frac{2\lambda}{(\lambda - t)^3}.
+\]
+The second moment is given by:
+\[
+E(X^2) = M''_X(0) = \frac{2}{\lambda^2}.
+\]
+Using the formula for variance:
+\[
+\text{Var}(X) = E(X^2) - (E(X))^2 = \frac{2}{\lambda^2} - \left(\frac{1}{\lambda}\right)^2 = \frac{2}{\lambda^2} - \frac{1}{\lambda^2} = \frac{1}{\lambda^2}.
+\]
+
+\subsubsection{Normal Distribution}
+
+Let \( X \sim N(\mu, \sigma^2) \) be a normally distributed random variable with mean \( \mu \) and variance \( \sigma^2 \).
+
+The moment generating function \( M_X(t) \) of \( X \) is defined as:
+\[
+M_X(t) = E\left(e^{tX}\right).
+\]
+For the normal distribution, the MGF is given by:
+\[
+M_X(t) = e^{\mu t + \frac{\sigma^2 t^2}{2}}.
+\]
+
+\textbf{Mean:} The mean \( E(X) \) is the first moment and can be calculated using the MGF:
+\[
+E(X) = M'_X(0).
+\]
+
+First, we differentiate the MGF:
+\[
+M'_X(t) = \frac{d}{dt}\left(e^{\mu t + \frac{\sigma^2 t^2}{2}}\right) = e^{\mu t + \frac{\sigma^2 t^2}{2}}\left(\mu + \sigma^2 t\right).
+\]
+
+Now, we evaluate this at \( t = 0 \):
+\[
+M'_X(0) = e^{\mu \cdot 0 + \frac{\sigma^2 \cdot 0^2}{2}} \left(\mu + \sigma^2 \cdot 0\right) = e^0 \cdot \mu = \mu.
+\]
+Thus, the mean of \( X \) is:
+\[
+E(X) = \mu.
+\]
+
+\textbf{Variance:} The variance \( \text{Var}(X) \) is calculated using the second moment:
+\[
+\text{Var}(X) = E(X^2) - (E(X))^2.
+\]
+We first need to find \( E(X^2) \), which can be obtained from the MGF:
+\[
+E(X^2) = M''_X(0).
+\]
+
+Differentiating the MGF again:
+\[
+M''_X(t) = \frac{d^2}{dt^2}\left(e^{\mu t + \frac{\sigma^2 t^2}{2}}\right) = e^{\mu t + \frac{\sigma^2 t^2}{2}}\left(\mu + \sigma^2 t\right)^2 + e^{\mu t + \frac{\sigma^2 t^2}{2}} \left(\mu + \sigma^2 t\right) \cdot \frac{\sigma^2}{2} 
+\]
+\[
+    = e^{\mu t + \frac{\sigma^2 t^2}{2}} \left(\mu^2 + 2\mu \sigma^2 t + \sigma^4 t^2 + \sigma^2\right).
+\]
+
+Now, evaluating at \( t = 0 \):
+\[
+M''_X(0) = e^{\mu \cdot 0 + \frac{\sigma^2 \cdot 0^2}{2}} \left(\mu^2 + 0 + 0 + \sigma^2\right) = e^0 \cdot \left(\mu^2 + \sigma^2\right) = \mu^2 + \sigma^2.
+\]
+
+Substituting back into the variance formula:
+\[
+\text{Var}(X) = E(X^2) - (E(X))^2 = \left(\mu^2 + \sigma^2\right) - \mu^2 = \sigma^2.
+\]
+
+For the remaining distributions, derive \textit{mean} and \textit{variance} as an exercise. 
+
+\subsubsection{Log-Normal Distribution}
+
+\textbf{Mean:}
+\[
+E(X) = e^{\mu + \frac{\sigma^2}{2}}.
+\]
+
+\textbf{Variance:}
+\[
+\text{Var}(X) = (e^{\sigma^2} - 1)e^{2\mu + \sigma^2}.
+\]
+
+\subsubsection{Weibull Distribution}
+
+\textbf{Mean:}
+\[
+E(X) = \lambda \Gamma\left(1 + \frac{1}{k}\right).
+\]
+
+\textbf{Variance:}
+\[
+\text{Var}(X) = \lambda^2 \left( \Gamma\left(1 + \frac{2}{k}\right) - \left( \Gamma\left(1 + \frac{1}{k}\right) \right)^2 \right).
+\]
+
+\subsubsection{Gamma Distribution}
+
+\textbf{Mean:}
+\[
+E(X) = k\theta.
+\]
+
+\textbf{Variance:}
+\[
+\text{Var}(X) = k\theta^2.
+\]
+
+\subsubsection{Beta Distribution}
+
+\textbf{Mean:}
+\[
+E(X) = \frac{\alpha}{\alpha + \beta}.
+\]
+
+\textbf{Variance:}
+\[
+\text{Var}(X) = \frac{\alpha\beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}.
+\]
+
+\subsubsection{Chi-squared Distribution}
+
+The Chi-squared distribution with \( k \) degrees of freedom has the following properties.\\
+
+\textbf{Mean:}
+\[
+E(X) = k.
+\]
+
+\textbf{Variance:}
+\[
+\text{Var}(X) = 2k.
+\]
+
+\subsubsection{Student's t-Distribution}
+
+The Student's t-distribution with \( \nu \) degrees of freedom has different properties depending on the degrees of freedom.\\
+
+\textbf{Mean:}
+\[
+E(X) = 
+\begin{cases} 
+0 & \text{if } \nu > 1 \\ 
+\text{undefined} & \text{if } \nu \leq 1 
+\end{cases}
+\]
+
+\textbf{Variance:}
+\[
+\text{Var}(X) = 
+\begin{cases} 
+\frac{\nu}{\nu - 2} & \text{if } \nu > 2 \\ 
+\text{undefined} & \text{if } \nu \leq 2 
+\end{cases}
+\]
+
